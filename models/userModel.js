@@ -22,6 +22,14 @@ userSchema.plugin(findOrCreate);
 
 const User = mongoose.model('User', userSchema);
 
+
+async function run() {
+  await mongoose.connect(`${process.env.DB_URL}`)
+  mongoose.model('User', userSchema);
+  await mongoose.model('User'),findOne();
+}
+ run();
+
 passport.use(User.createStrategy());
 
 
@@ -42,6 +50,8 @@ passport.use(new GoogleStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
   callbackURL: "https://real-pink-millipede-shoe.cyclic.app/auth/google/admin",
+  //it has to match with Authorized redirect URIs on the google console
+
 },
 function(accessToken, refreshToken, email, cb) {
   User.findOrCreate({ googleId: email.id, username: email.displayName}, function (err, user) {
