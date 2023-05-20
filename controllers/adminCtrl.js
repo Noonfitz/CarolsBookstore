@@ -4,62 +4,43 @@ const Author = require('../models/authorModel');
 
 module.exports = {
   admin: (request, response) => {
-    if (request.isAuthenticated()) {
+    // if (request.isAuthenticated()) {
       response.render('pages/admin', {
         copyrightYear: siteData.year
       });
-    } else {
-      response.redirect('/login')
-    }
+    // } else {
+    //   response.redirect('/login')
+    // }
   },
   admin_books: (request, response) => {
+    // if(request.isAuthenticated()){
       Book.find({}, (error, allBooks) => {
         if(error){
           return error;
         } else {
-          if(request.isAuthenticated()){
           response.render('pages/adminBooks', {
             copyrightYear: siteData.year,
             inventoryArray: allBooks
           });
-        }  else {
-          response.redirect('/login')
         }
-        }
-      });
-    
+      })
+    // } else {
+    //   response.redirect('/login')
+    // }
   },
 
-    
-    
-    // admin_books: (request, response) => {
-    //     Book.find({}, (error, allBooks) => {
-    //       if (error) {
-    //         return error;
-    //       } else {
-    //         if (request.isAuthenticated()) {
-    //           response.render("pages/adminBooks", {
-    //             copyrightYear: siteData.year,
-    //             inventoryArray: allBooks,
-    //           });
-    //         } else {
-    //           console.log("There is an error.");
-    //           response.redirect("/login");
-    //         }
-    //       }
-    //     });
-    //   },
+
   create_book: (request, response) => {
-    if (request.isAuthenticated()) {
+    // if (request.isAuthenticated()) {
       response.render('pages/bookCreate', {
         copyrightYear: siteData.year,
       });
-    } else {
-      response.redirect('/login')
-    }
+    // } else {
+    //   response.redirect('/login')
+    // }
   },
   admin_authors: (request, response) => {
-    if(request.isAuthenticated()){
+    // if(request.isAuthenticated()){
       Author.find({}, (error, allAuthors) => {
         if(error){
           return error;
@@ -70,9 +51,9 @@ module.exports = {
           });
         }
       })
-    } else {
-      response.redirect('/login')
-    }
+    // } else {
+    //   response.redirect('/login')
+    // }
   },
   create_author: (request, response) => {
     if(request.isAuthenticated()){
@@ -84,7 +65,7 @@ module.exports = {
     }
   },
   book_update_get: (request, response) => {
-    if(request.isAuthenticated()){
+    // if(request.isAuthenticated()){
       const { _id } = request.params;
       Book.findOne({_id: _id}, (error, foundBook) => {
         if(error) {
@@ -96,12 +77,12 @@ module.exports = {
           });
         }
       });    
-    } else {
-      response.redirect('/login')
-    }
+    // } else {
+    //   response.redirect('/login')
+    // }
   },
   author_update_get: (request, response) => {
-    if(request.isAuthenticated()){
+    // if(request.isAuthenticated()){
       const { _id } = request.params;
       Author.findOne({_id: _id}, (error, foundAuthor) => {
         if(error) {
@@ -113,8 +94,8 @@ module.exports = {
           });
         }
       });   
-    } else {
-      response.redirect('/login')
-    }
+    // } else {
+    //   response.redirect('/login')
+    // }
   }
 }
